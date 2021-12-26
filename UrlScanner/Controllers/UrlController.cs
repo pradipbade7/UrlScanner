@@ -44,5 +44,32 @@ namespace UrlScanner.Controllers
                 return ex.Message;
             }
         }
+
+        [Route("api/packagescanurl")]
+        [HttpPost]
+        public async Task<string> PackageScanUrl()
+        {
+            try
+            {
+                using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+                {
+                    string text = await reader.ReadToEndAsync();
+                    UrlService objService = new UrlService();
+                    if (!string.IsNullOrEmpty(text))
+                    {
+                        return objService.UrlFromTextUsingPackage(text);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

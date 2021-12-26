@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using urldetector;
+using urldetector.detection;
 
 namespace UrlScanner.Services
 {
@@ -71,5 +73,21 @@ namespace UrlScanner.Services
 
         }
 
+        public string UrlFromTextUsingPackage(string text)
+        {
+            text = text.Replace("\"", " ").Replace("</", " ").Replace(");", " ");
+            List<string> urls = new List<string>();
+            UrlDetector parser = new UrlDetector(text, UrlDetectorOptions.Default);
+            List<Url> found = parser.Detect();
+            var AllUrls = found.Select(x => x.GetFullUrl());
+            foreach (Url url in found)
+            {
+                if (CheckUrl(url.GetFullUrl(), out string urltxt))
+                {
+                    urls.Add(urltxt);
+                }
+            }
+            return JsonConvert.SerializeObject(urls.Distinct().ToList());
+        }
     }
 }
