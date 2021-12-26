@@ -73,7 +73,8 @@ namespace UrlScanner.Services
 
         }
 
-        public string UrlFromTextUsingPackage(string text)
+        //used package https://www.nuget.org/packages/eladaus.urldetector/1.3.0
+        public string UrlFromTextUsingPackage(string text) 
         {
             text = text.Replace("\"", " ").Replace("</", " ").Replace(");", " ");
             List<string> urls = new List<string>();
