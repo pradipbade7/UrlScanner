@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "jZaTIJrI42/oKAWxOQASY58XDOXcQO8ukGCMARRLKh/YqObMSXK9rgp0TFGu0UnH13HqVDmPojPR6gyacytMjw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\pradi\\source\\repos\\UrlScanner\\UrlScanner\\UrlScanner.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pradi\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\pradi\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.12\\microsoft.netcore.app.host.win-x64.5.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}
