@@ -21,23 +21,59 @@ namespace UrlScanner.Services
         }
         public string UrlFromTextService(string text)
         {
-            text = text.Replace("\"", " ").Replace("</"," ");
+            text = text.Replace("\"", " ").Replace("</", " ");
             List<string> urls = new List<string>();
             var linkParser = new Regex(@"\b((?:(?:https?):\/\/)|[\w/\-?=%.]+\.)\S+\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            Uri uriResult;
+            Uri resultUri;
             foreach (Match m in linkParser.Matches(text))
             {
-                //if (CheckValidUrl(m.Value, out uriResult))
+                if (CheckUrl(m.Value, out string urltxt))
+                {
+                    urls.Add(urltxt);
+                }
+                //if (CheckValidUrl(m.Value, out resultUri))
                 //{
                 //    urls.Add(CheckUrlScheme(m.Value));
                 //}
-                if (CheckUrl(m.Value))
-                {
-                    urls.Add(CheckUrlScheme(m.Value));
-                }
+
             }
-            return JsonConvert.SerializeObject(urls.Distinct().ToList()); 
+            return JsonConvert.SerializeObject(urls.Distinct().ToList());
         }
+        private string CheckUrlScheme(string url)
+        {
+            if (!Regex.IsMatch(url, @"^https?:\/\/", RegexOptions.IgnoreCase))
+                url = "http://" + url;
+            return url;
+        }
+
+        private bool CheckUrl(string url, out string urltxt)
+        {
+            try
+            {
+                if (!Regex.IsMatch(url, @"^https?:\/\/", RegexOptions.IgnoreCase))
+                    url = "http://" + url;
+                url = HttpUtility.UrlEncode(url);
+                bool isUri = Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute);
+                urltxt = url = HttpUtility.UrlDecode(url);
+                if (isUri)
+                {
+                    var uri = new Uri(url);
+                    var host = uri.Host;
+                    string[] splittxt = host.Split('.');
+                    string ext = splittxt[splittxt.Length - 1];
+                    if (DomainExtentions.Contains(ext.ToUpper()))
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                urltxt = null;
+                return false;
+            }
+
+        }
+
         private bool CheckValidUrl(string url, out Uri resultURI)
         {
             try
@@ -59,40 +95,7 @@ namespace UrlScanner.Services
                 resultURI = null;
                 return false;
             }
-            
-        }
-        private string CheckUrlScheme(string url)
-        {
-            if (!Regex.IsMatch(url, @"^https?:\/\/", RegexOptions.IgnoreCase))
-                url = "http://" + url;
-            return url;
-        }
 
-        private bool CheckUrl(string url)
-        {
-            try
-            {
-                if (!Regex.IsMatch(url, @"^https?:\/\/", RegexOptions.IgnoreCase))
-                    url = "http://" + url;
-                url = HttpUtility.UrlEncode(url);
-                bool isUri = Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute);
-                url = HttpUtility.UrlDecode(url);
-                if (isUri)
-                {
-                    var uri = new Uri(url);
-                    var host = uri.Host;
-                    var splittxt = host.Split('.');
-                    string ext = splittxt[splittxt.Length - 1];
-                    if (DomainExtentions.Contains(ext.ToUpper()))
-                        return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            
         }
     }
 }

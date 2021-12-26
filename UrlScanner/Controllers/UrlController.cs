@@ -21,31 +21,9 @@ namespace UrlScanner.Controllers
             return  "Welcome to Url Scanner";
         }
 
-        [Route("api/urlfromtext")]
+        [Route("api/scanurl")]
         [HttpPost]
-        public string UrlFromText([FromBody] TextModel objText)
-        {
-            try
-            {
-                UrlService objService = new UrlService();
-                if (!string.IsNullOrEmpty(objText.Text))
-                {
-                    return objService.UrlFromTextService(objText.Text);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
-        [Route("api/urlfromtextplaintext")]
-        [HttpPost]
-        public async Task<string> UrlFromTextPlainText()
+        public async Task<string> ScanUrl()
         {
             try
             {
