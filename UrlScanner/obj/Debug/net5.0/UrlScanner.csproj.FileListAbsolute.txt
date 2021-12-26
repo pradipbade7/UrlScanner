@@ -20,6 +20,6 @@ C:\Users\pradi\source\repos\UrlScanner\UrlScanner\obj\Debug\net5.0\ref\UrlScanne
 C:\Users\pradi\source\repos\UrlScanner\UrlScanner\obj\Debug\net5.0\UrlScanner.pdb
 C:\Users\pradi\source\repos\UrlScanner\UrlScanner\obj\Debug\net5.0\UrlScanner.genruntimeconfig.cache
 C:\Users\pradi\source\repos\UrlScanner\UrlScanner\obj\Debug\net5.0\UrlScanner.csproj.AssemblyReference.cache
-C:\Users\pradi\source\repos\UrlScanner\UrlScanner\bin\Debug\net5.0\domainext.json
 C:\Users\pradi\source\repos\UrlScanner\UrlScanner\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\pradi\source\repos\UrlScanner\UrlScanner\obj\Debug\net5.0\UrlScanner.csproj.CopyComplete
+C:\Users\pradi\source\repos\UrlScanner\UrlScanner\bin\Debug\net5.0\Extentions\domainext.json
